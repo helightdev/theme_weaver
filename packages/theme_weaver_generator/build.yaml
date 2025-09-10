@@ -1,0 +1,11 @@
+targets:
+  $default:
+    builders: {}
+
+builders:
+  themeWeaverBuilder:
+    import: "package:theme_weaver_generator/builders.dart"
+    builder_factories: [ "themeWeaverBuilder" ]
+    build_extensions: { ".dart": [ ".theme.g.dart" ] }
+    auto_apply: root_package
+    build_to: source

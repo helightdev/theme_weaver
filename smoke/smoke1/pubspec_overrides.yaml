@@ -1,0 +1,5 @@
+dependency_overrides:
+  theme_weaver:
+    path: ../../packages/theme_weaver
+  theme_weaver_generator:
+    path: ../../packages/theme_weaver_generator

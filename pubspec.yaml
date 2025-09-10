@@ -1,0 +1,11 @@
+name: theme_weaver_project
+
+environment:
+  sdk: '>=3.9.0 <4.0.0'
+
+dev_dependencies:
+  melos: ^7.0.0
+
+workspace:
+  - packages/theme_weaver
+  - packages/theme_weaver_generator
