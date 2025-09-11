@@ -40,10 +40,12 @@ class CategoryGenerator extends GeneratorForAnnotation<WaveCategoryTheme> {
   ) {
     builder.body.add(
       Class((clazz) {
-        clazz.name = "${themeName}Data";
-        clazz.extend = Reference('CleaverThemeCategory<${themeName}Data>');
+        clazz.name = themeName;
+        clazz.extend = Reference('CleaverThemeCategory<$themeName>');
 
-        var constructor = ConstructorBuilder()..constant = true..name = "value";
+        var constructor = ConstructorBuilder()
+          ..constant = true
+          ..name = "value";
 
         for (var field in fields) {
           clazz.fields.add(
@@ -85,13 +87,13 @@ class CategoryGenerator extends GeneratorForAnnotation<WaveCategoryTheme> {
           Method(
             (builder) => builder
               ..name = 'lerp'
-              ..returns = Reference('${themeName}Data')
+              ..returns = Reference(themeName)
               ..annotations.add(CodeExpression(Code('override')))
               ..requiredParameters.addAll([
                 Parameter(
                   (builder) => builder
                     ..name = 'b'
-                    ..type = Reference('${themeName}Data?'),
+                    ..type = Reference('$themeName?'),
                 ),
                 Parameter(
                   (builder) => builder
@@ -101,7 +103,7 @@ class CategoryGenerator extends GeneratorForAnnotation<WaveCategoryTheme> {
               ])
               ..body = Code('''
                 if (b == null) return this;
-                return ${themeName}Data.value(
+                return $themeName.value(
                   ${fields.map((field) => '''
                   ${field.name}: _${field.name}.lerpValue($descriptorName.${field.name}, b._${field.name}, t)''').join(',')}
                 );
@@ -113,18 +115,18 @@ class CategoryGenerator extends GeneratorForAnnotation<WaveCategoryTheme> {
           Method(
             (builder) => builder
               ..name = 'merge'
-              ..returns = Reference('${themeName}Data')
+              ..returns = Reference(themeName)
               ..annotations.add(CodeExpression(Code('override')))
               ..requiredParameters.add(
                 Parameter(
                   (builder) => builder
                     ..name = 'other'
-                    ..type = Reference('${themeName}Data?'),
+                    ..type = Reference('$themeName?'),
                 ),
               )
               ..body = Code('''
                 if (other == null) return this;
-                return ${themeName}Data.value(
+                return $themeName.value(
                   ${fields.map((field) => '''
                   ${field.name}: _${field.name}.mergeValue($descriptorName.${field.name}, other._${field.name})''').join(',')}
                 );
@@ -137,7 +139,7 @@ class CategoryGenerator extends GeneratorForAnnotation<WaveCategoryTheme> {
           Method(
             (builder) => builder
               ..name = 'copyWith'
-              ..returns = Reference('${themeName}Data')
+              ..returns = Reference(themeName)
               ..annotations.add(CodeExpression(Code('override')))
               ..lambda = true
               ..optionalParameters.addAll(
@@ -150,7 +152,7 @@ class CategoryGenerator extends GeneratorForAnnotation<WaveCategoryTheme> {
                   ),
                 ),
               )
-              ..body = Code('''${themeName}Data.value(
+              ..body = Code('''$themeName.value(
                 ${fields.map((field) => '''
                 ${field.name}: ${field.name} ?? this._${field.name}''').join(',')}
               )'''),
@@ -173,7 +175,7 @@ class CategoryGenerator extends GeneratorForAnnotation<WaveCategoryTheme> {
               )
               ..body = Code('''
                 return identical(this, other) ||
-                  other is ${themeName}Data &&
+                  other is $themeName &&
                   runtimeType == other.runtimeType &&
                   ${fields.map((field) => 'other._${field.name} == _${field.name}').join(' &&\n')};
                 '''),
@@ -188,7 +190,12 @@ class CategoryGenerator extends GeneratorForAnnotation<WaveCategoryTheme> {
               ..type = MethodType.getter
               ..returns = Reference('int')
               ..lambda = true
-              ..body = Code('Object.hash(${fields.map((field) => '_${field.name}').join(", ")})'),
+              ..body = Code(switch (fields.length) {
+                0 => '0',
+                1 => '_${fields[0].name}.hashCode',
+                > 20 => 'Object.hashAll([${fields.map((field) => '_${field.name}').join(", ")}])',
+                _ => 'Object.hash(${fields.map((field) => '_${field.name}').join(", ")})',
+              }),
           ),
         );
 
@@ -197,23 +204,23 @@ class CategoryGenerator extends GeneratorForAnnotation<WaveCategoryTheme> {
         clazz
           ..constructors.add(
             Constructor(
-                  (builder) => builder
+              (builder) => builder
                 ..factory = true
                 ..optionalParameters.addAll([
                   for (var field in fields)
                     Parameter(
-                          (builder) => builder
+                      (builder) => builder
                         ..name = field.name
                         ..named = true
                         ..type = Reference('${field.typeStr}?'),
                     ),
                 ])
-                ..redirect = Reference('${themeName}Data._modify'),
+                ..redirect = Reference('$themeName._modify'),
             ),
           )
           ..constructors.add(
             Constructor(
-                  (builder) => builder
+              (builder) => builder
                 ..name = "_modify"
                 ..factory = true
                 ..optionalParameters.addAll([
@@ -235,7 +242,7 @@ class CategoryGenerator extends GeneratorForAnnotation<WaveCategoryTheme> {
                 ])
                 ..lambda = true
                 ..body = Code('''
-                  ${themeName}Data.value(
+                  $themeName.value(
                     ${fields.map((field) => '''
                     ${field.name}: ${switch (field.isNullable) {
                   true => '${field.name} == #inherit ? const ThemeValue.inherit() : ThemeValue.merge(${field.name} as ${field.typeStr})',
@@ -244,7 +251,6 @@ class CategoryGenerator extends GeneratorForAnnotation<WaveCategoryTheme> {
                   )'''),
             ),
           );
-
       }),
     );
   }

@@ -7,8 +7,8 @@ part of 'terminal.dart';
 // CategoryGenerator
 // **************************************************************************
 
-class MyCategoryData extends CleaverThemeCategory<MyCategoryData> {
-  const MyCategoryData.value({
+class MyCategory extends CleaverThemeCategory<MyCategory> {
+  const MyCategory.value({
     ThemeValue<Color?>? foreground,
     ThemeValue<Color?>? background,
     ThemeValue<double>? padding,
@@ -16,17 +16,14 @@ class MyCategoryData extends CleaverThemeCategory<MyCategoryData> {
        _background = background ?? const ThemeValue.inherit(),
        _padding = padding ?? const ThemeValue.inherit();
 
-  factory MyCategoryData({
-    Color? foreground,
-    Color? background,
-    double? padding,
-  }) = MyCategoryData._modify;
+  factory MyCategory({Color? foreground, Color? background, double? padding}) =
+      MyCategory._modify;
 
-  factory MyCategoryData._modify({
+  factory MyCategory._modify({
     Object? foreground = #inherit,
     Object? background = #inherit,
     double? padding,
-  }) => MyCategoryData.value(
+  }) => MyCategory.value(
     foreground: foreground == #inherit
         ? const ThemeValue.inherit()
         : ThemeValue.merge(foreground as Color),
@@ -53,9 +50,9 @@ class MyCategoryData extends CleaverThemeCategory<MyCategoryData> {
   double get padding => _padding.finalize(MyCategoryDescriptor.padding);
 
   @override
-  MyCategoryData lerp(MyCategoryData? b, double t) {
+  MyCategory lerp(MyCategory? b, double t) {
     if (b == null) return this;
-    return MyCategoryData.value(
+    return MyCategory.value(
       foreground: _foreground.lerpValue(
         MyCategoryDescriptor.foreground,
         b._foreground,
@@ -71,9 +68,9 @@ class MyCategoryData extends CleaverThemeCategory<MyCategoryData> {
   }
 
   @override
-  MyCategoryData merge(MyCategoryData? other) {
+  MyCategory merge(MyCategory? other) {
     if (other == null) return this;
-    return MyCategoryData.value(
+    return MyCategory.value(
       foreground: _foreground.mergeValue(
         MyCategoryDescriptor.foreground,
         other._foreground,
@@ -90,11 +87,11 @@ class MyCategoryData extends CleaverThemeCategory<MyCategoryData> {
   }
 
   @override
-  MyCategoryData copyWith({
+  MyCategory copyWith({
     ThemeValue<Color?>? foreground,
     ThemeValue<Color?>? background,
     ThemeValue<double>? padding,
-  }) => MyCategoryData.value(
+  }) => MyCategory.value(
     foreground: foreground ?? this._foreground,
     background: background ?? this._background,
     padding: padding ?? this._padding,
@@ -103,7 +100,7 @@ class MyCategoryData extends CleaverThemeCategory<MyCategoryData> {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        other is MyCategoryData &&
+        other is MyCategory &&
             runtimeType == other.runtimeType &&
             other._foreground == _foreground &&
             other._background == _background &&

@@ -589,9 +589,12 @@ class ToplevelGenerator extends GeneratorForAnnotation<WeaveToplevelTheme> {
               ..type = MethodType.getter
               ..returns = Reference('int')
               ..lambda = true
-              ..body = Code(
-                'Object.hash(${fields.map((field) => field.name).join(", ")})',
-              ),
+              ..body = Code(switch (fields.length) {
+                0 => '0',
+                1 => '${fields[0].name}.hashCode',
+                > 20 => 'Object.hashAll([${fields.map((field) => field.name).join(", ")}])',
+                _ => 'Object.hash(${fields.map((field) => field.name).join(", ")})',
+              }),
           ),
         );
 

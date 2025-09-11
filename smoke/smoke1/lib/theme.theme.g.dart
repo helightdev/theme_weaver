@@ -180,21 +180,20 @@ class MyTheme extends StatelessWidget {
 // CategoryGenerator
 // **************************************************************************
 
-class CompositeCategoryData
-    extends CleaverThemeCategory<CompositeCategoryData> {
-  const CompositeCategoryData.value({
+class CompositeCategory extends CleaverThemeCategory<CompositeCategory> {
+  const CompositeCategory.value({
     ThemeValue<Color?>? primary,
-    ThemeValue<MyCategoryData>? category,
+    ThemeValue<MyCategory>? category,
   }) : _primary = primary ?? const ThemeValue.inherit(),
        _category = category ?? const ThemeValue.inherit();
 
-  factory CompositeCategoryData({Color? primary, MyCategoryData? category}) =
-      CompositeCategoryData._modify;
+  factory CompositeCategory({Color? primary, MyCategory? category}) =
+      CompositeCategory._modify;
 
-  factory CompositeCategoryData._modify({
+  factory CompositeCategory._modify({
     Object? primary = #inherit,
-    MyCategoryData? category,
-  }) => CompositeCategoryData.value(
+    MyCategory? category,
+  }) => CompositeCategory.value(
     primary: primary == #inherit
         ? const ThemeValue.inherit()
         : ThemeValue.merge(primary as Color),
@@ -205,17 +204,17 @@ class CompositeCategoryData
 
   final ThemeValue<Color?> _primary;
 
-  final ThemeValue<MyCategoryData> _category;
+  final ThemeValue<MyCategory> _category;
 
   Color? get primary => _primary.finalize(CompositeCategoryDescriptor.primary);
 
-  MyCategoryData get category =>
+  MyCategory get category =>
       _category.finalize(CompositeCategoryDescriptor.category);
 
   @override
-  CompositeCategoryData lerp(CompositeCategoryData? b, double t) {
+  CompositeCategory lerp(CompositeCategory? b, double t) {
     if (b == null) return this;
-    return CompositeCategoryData.value(
+    return CompositeCategory.value(
       primary: _primary.lerpValue(
         CompositeCategoryDescriptor.primary,
         b._primary,
@@ -230,9 +229,9 @@ class CompositeCategoryData
   }
 
   @override
-  CompositeCategoryData merge(CompositeCategoryData? other) {
+  CompositeCategory merge(CompositeCategory? other) {
     if (other == null) return this;
-    return CompositeCategoryData.value(
+    return CompositeCategory.value(
       primary: _primary.mergeValue(
         CompositeCategoryDescriptor.primary,
         other._primary,
@@ -245,10 +244,10 @@ class CompositeCategoryData
   }
 
   @override
-  CompositeCategoryData copyWith({
+  CompositeCategory copyWith({
     ThemeValue<Color?>? primary,
-    ThemeValue<MyCategoryData>? category,
-  }) => CompositeCategoryData.value(
+    ThemeValue<MyCategory>? category,
+  }) => CompositeCategory.value(
     primary: primary ?? this._primary,
     category: category ?? this._category,
   );
@@ -256,7 +255,7 @@ class CompositeCategoryData
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        other is CompositeCategoryData &&
+        other is CompositeCategory &&
             runtimeType == other.runtimeType &&
             other._primary == _primary &&
             other._category == _category;

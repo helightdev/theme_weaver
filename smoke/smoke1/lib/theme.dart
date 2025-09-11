@@ -19,6 +19,6 @@ class MyThemeDescriptor extends WeavedThemeBase {
 class CompositeCategoryDescriptor extends WeavedThemeBase {
 
   static const Descriptor<Color?> primary = ColorDescriptor(null);
-  static const Descriptor<MyCategoryData> category = ThemeCategoryDescriptor(MyCategoryData.value());
+  static const Descriptor<MyCategory> category = ThemeCategoryDescriptor(MyCategory.value());
 }
 

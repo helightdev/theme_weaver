@@ -18,33 +18,33 @@ void main() {
 
   group("Category Merging", () {
     test("Simple Modifications", () {
-      expect(MyCategoryData().background, MyCategoryDescriptor.background.fallback);
-      expect(MyCategoryData(background: Colors.red).background, Colors.red);
+      expect(MyCategory().background, MyCategoryDescriptor.background.fallback);
+      expect(MyCategory(background: Colors.red).background, Colors.red);
       expect(
-        MyCategoryData(
+        MyCategory(
           background: Colors.red,
-        ).merge(MyCategoryData(background: Colors.green)).background,
+        ).merge(MyCategory(background: Colors.green)).background,
         Colors.red,
       );
       expect(
-        MyCategoryData().merge(MyCategoryData(background: Colors.green)).background,
+        MyCategory().merge(MyCategory(background: Colors.green)).background,
         Colors.green,
       );
       expect(
-        MyCategoryData.value(
+        MyCategory.value(
           background: ThemeValue.reset(),
-        ).merge(MyCategoryData(background: Colors.green)).background,
+        ).merge(MyCategory(background: Colors.green)).background,
         MyCategoryDescriptor.background.fallback,
       );
     });
 
     test("Composite Modifications", () {
-      final first = CompositeCategoryData(
-        category: MyCategoryData(background: Colors.red, foreground: Colors.green),
+      final first = CompositeCategory(
+        category: MyCategory(background: Colors.red, foreground: Colors.green),
         primary: Colors.blue,
       );
-      final last = CompositeCategoryData(
-        category: MyCategoryData(background: Colors.green),
+      final last = CompositeCategory(
+        category: MyCategory(background: Colors.green),
       ).merge(first);
 
       expect(first.category.background, Colors.red);
