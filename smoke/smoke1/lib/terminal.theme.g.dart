@@ -7,7 +7,7 @@ part of 'terminal.dart';
 // CategoryGenerator
 // **************************************************************************
 
-class MyCategory extends CleaverThemeCategory<MyCategory> {
+class MyCategory extends WeaverThemeCategory<MyCategory> {
   const MyCategory.value({
     ThemeValue<Color?>? foreground,
     ThemeValue<Color?>? background,

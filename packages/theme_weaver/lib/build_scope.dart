@@ -4,8 +4,8 @@ class WeaveToplevelTheme {
   const WeaveToplevelTheme();
 }
 
-class WaveCategoryTheme {
-  const WaveCategoryTheme();
+class WeaveCategoryTheme {
+  const WeaveCategoryTheme();
 }
 
 abstract class WeavedThemeBase {

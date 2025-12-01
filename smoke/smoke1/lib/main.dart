@@ -3,8 +3,8 @@ import 'package:smoke1/theme.dart';
 import 'package:theme_weaver/theme_weaver.dart';
 
 void main() {
-  runApp(const MyApp());
   MyTheme.modify(strField: "test", child: Text("asdsd"));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

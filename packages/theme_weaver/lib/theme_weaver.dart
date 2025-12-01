@@ -216,14 +216,14 @@ class AlignmentDescriptor<T extends Alignment?> extends Descriptor<T> {
   T merge(T override, T base) => override ?? base;
 }
 
-class ThemeCategoryDescriptor<T extends CleaverThemeCategory<T>> extends Descriptor<T> {
+class ThemeCategoryDescriptor<T extends WeaverThemeCategory<T>> extends Descriptor<T> {
   @override
   final T fallback;
 
   const ThemeCategoryDescriptor(this.fallback);
 
   @override
-  T lerp(CleaverThemeCategory? a, CleaverThemeCategory? b, double t) {
+  T lerp(WeaverThemeCategory? a, WeaverThemeCategory? b, double t) {
     var lerped = a?.lerp(b, t) ?? b;
     if (lerped is T) return lerped;
     return fallback;
@@ -304,9 +304,9 @@ class ThemeValue<T> {
   int get hashCode => Object.hash(value, mode);
 }
 
-abstract class CleaverThemeCategory<TSelf extends CleaverThemeCategory<TSelf>> extends ThemeExtension<TSelf> {
+abstract class WeaverThemeCategory<TSelf extends WeaverThemeCategory<TSelf>> extends ThemeExtension<TSelf> {
 
-  const CleaverThemeCategory();
+  const WeaverThemeCategory();
 
   TSelf merge(TSelf? other);
 

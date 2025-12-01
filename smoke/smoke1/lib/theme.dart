@@ -15,7 +15,7 @@ class MyThemeDescriptor extends WeavedThemeBase {
 
 }
 
-@WaveCategoryTheme()
+@WeaveCategoryTheme()
 class CompositeCategoryDescriptor extends WeavedThemeBase {
 
   static const Descriptor<Color?> primary = ColorDescriptor(null);

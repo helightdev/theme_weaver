@@ -5,7 +5,7 @@ import 'package:source_gen/source_gen.dart' hide LibraryBuilder;
 import 'package:theme_weaver/build_scope.dart';
 import 'package:theme_weaver_generator/src/shared.dart';
 
-class CategoryGenerator extends GeneratorForAnnotation<WaveCategoryTheme> {
+class CategoryGenerator extends GeneratorForAnnotation<WeaveCategoryTheme> {
   @override
   Future<String> generateForAnnotatedElement(
     Element2 element,
@@ -41,7 +41,7 @@ class CategoryGenerator extends GeneratorForAnnotation<WaveCategoryTheme> {
     builder.body.add(
       Class((clazz) {
         clazz.name = themeName;
-        clazz.extend = Reference('CleaverThemeCategory<$themeName>');
+        clazz.extend = Reference('WeaverThemeCategory<$themeName>');
 
         var constructor = ConstructorBuilder()
           ..constant = true

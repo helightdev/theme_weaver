@@ -180,7 +180,7 @@ class MyTheme extends StatelessWidget {
 // CategoryGenerator
 // **************************************************************************
 
-class CompositeCategory extends CleaverThemeCategory<CompositeCategory> {
+class CompositeCategory extends WeaverThemeCategory<CompositeCategory> {
   const CompositeCategory.value({
     ThemeValue<Color?>? primary,
     ThemeValue<MyCategory>? category,
